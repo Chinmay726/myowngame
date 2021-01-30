@@ -72,21 +72,51 @@ function draw() {
     car.x -=5;
     
   }
+
+  if(keyDown(ENTER)){
+    gameState = "play";
+  }
+
+  if(keyDown(27)){
+    gameState = "pause";
+  }
+
+  
   if(trafficGroup.isTouching(car)){
     gameState = "end";
     trafficGroup.destroyEach();
-    car.destroy();
-    policecar.destroy();
+    car.visible = false;
+    policecar.visible = false;
     bdaudio.stop();
   }
   
   spawnObstacles();
   drawSprites();
+  if(gameState === "pause"){
+    traffic.velocityX = 0;
+    road.velocityX = 0;
+    car.velocityX = 0;
+    car.velocityX = 0;
+    
+  }
+
   if(gameState === "end"){
     trafficGroup.setVisibleEach(false);
     road.velocityX = -2;
     gameover.depth = 4;
     gameover.visible=true;
+  }
+
+  
+
+  if(gameState === "play"){
+    trafficGroup.setVisibleEach(true);
+    trafficGroup.velocityX= -5;
+    road.velocityX = -3;
+    
+    car.velocityX = 0;
+    policecar.velocityX = car.velocityX;
+    policecar.velocityY = car.velocityY;
   }
 }
 
