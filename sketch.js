@@ -1,6 +1,6 @@
 var car, policecar;
 var carimg, policarimg;
-var gameState = "play";
+var gameState = 0;
 
 
 function preload(){
@@ -11,6 +11,7 @@ function preload(){
  traffic3=loadImage("../imgs/Mini_truck.png");
  traffic4=loadImage("../imgs/Mini_van.png");
  traffic5=loadImage("../imgs/truck.png");
+ welcomeimg=loadImage("../imgs/welcome.png");
  traffic6=loadImage("../imgs/taxi.png");
  roadImg=loadImage("../imgs/trackImage.jpg");
  roadpic = loadImage("../imgs/gameover.png");
@@ -21,19 +22,26 @@ function preload(){
 function setup(){
   
   createCanvas(1500,700);
-  gameover = createSprite(displayWidth/2,displayHeight/2-100);
+  gameover = createSprite(displayWidth/2,displayHeight/2);
   gameover.addImage(roadpic);
   gameover.visible= false;
   road=createSprite(displayWidth/2, 350);
   road.scale = 0.8;
-  bdaudio.play();
+
+  console.log(gameState)
   road.addImage(roadImg);
   car = createSprite(500,400);
+  welcome = createSprite(displayWidth/2-10,displayHeight/2+10);
+  welcome.addImage(welcomeimg);
+  welcome.depth = 6;
   car.addImage(carimg);
   car.setCollider("rectangle", 0,0, 210, 80)
   policecar = createSprite(car.x - 300, car.y);
   policecar.addAnimation("police",policecarimg);
-  road.velocityX=-3;
+  policecar.setCollider("rectangle", 0,0, 210, 80);
+  policecar.depth=5;
+  console.log(policecar.depth);
+  road.velocityX=0;
   trafficGroup = new Group();
   
   
@@ -75,11 +83,10 @@ function draw() {
 
   if(keyDown(ENTER)){
     gameState = "play";
+    bdaudio.play();
   }
 
-  if(keyDown(27)){
-    gameState = "pause";
-  }
+  
 
   
   if(trafficGroup.isTouching(car)){
@@ -92,11 +99,43 @@ function draw() {
   
   spawnObstacles();
   drawSprites();
-  if(gameState === "pause"){
-    traffic.velocityX = 0;
-    road.velocityX = 0;
+
+  if(gameState === "play"){
+    if(frameCount%60===0){
+      traffic=createSprite(displayWidth + 100, Math.round(random(200,600)));
+      var ran=Math.round(random(1,6));
+      switch(ran){
+        case 1:traffic.addImage(traffic1);
+          break;
+    
+          case 2:traffic.addImage(traffic2);
+          break;
+    
+          case 3:traffic.addImage(traffic3);
+          break;
+    
+          case 4:traffic.addImage(traffic4);
+          break;
+    
+          case 5:traffic.addImage(traffic5);
+          break;
+    
+          case 6:traffic.addImage(traffic6);
+          break;
+          
+      }
+      
+      traffic.setCollider("rectangle", 0,0, 210, 80);
+      traffic.velocityX= -5;
+      traffic.depth = 5;
+      trafficGroup.add(traffic);
+      }
+    trafficGroup.setVisibleEach(true);
+    road.velocityX = -3;
     car.velocityX = 0;
-    car.velocityX = 0;
+    policecar.velocityX = car.velocityX;
+    policecar.velocityY = car.velocityY;
+    welcome.visible=false;
     
   }
 
@@ -107,49 +146,21 @@ function draw() {
     gameover.visible=true;
   }
 
+  if(gameState === "0"){
+  welcome.visible=true;
+ 
+  }
+
   
 
-  if(gameState === "play"){
-    trafficGroup.setVisibleEach(true);
-    trafficGroup.velocityX= -5;
-    road.velocityX = -3;
-    
-    car.velocityX = 0;
-    policecar.velocityX = car.velocityX;
-    policecar.velocityY = car.velocityY;
-  }
+  
+
+
 }
 
 
 function spawnObstacles(){
-  if(frameCount%60===0){
-  traffic=createSprite(displayWidth + 100, Math.round(random(200,600)));
-  var ran=Math.round(random(1,6));
-  switch(ran){
-    case 1:traffic.addImage(traffic1);
-      break;
-
-      case 2:traffic.addImage(traffic2);
-      break;
-
-      case 3:traffic.addImage(traffic3);
-      break;
-
-      case 4:traffic.addImage(traffic4);
-      break;
-
-      case 5:traffic.addImage(traffic5);
-      break;
-
-      case 6:traffic.addImage(traffic6);
-      break;
-      
-  }
   
-  traffic.setCollider("rectangle", 0,0, 210, 80);
-  traffic.velocityX=-5;
-  trafficGroup.add(traffic);
-  }
 }
 
 
