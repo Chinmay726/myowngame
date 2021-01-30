@@ -4,18 +4,18 @@ var gameState = 0;
 
 
 function preload(){
- policecarimg = loadAnimation("../imgs/Police/1.png", "../imgs/Police/2.png", "../imgs/Police/3.png");
- carimg = loadImage("../imgs/Black_viper.png");
- traffic1=loadImage("../imgs/Ambulance.png");
- traffic2=loadImage("../imgs/Car.png");
- traffic3=loadImage("../imgs/Mini_truck.png");
- traffic4=loadImage("../imgs/Mini_van.png");
- traffic5=loadImage("../imgs/truck.png");
- welcomeimg=loadImage("../imgs/welcome.png");
- traffic6=loadImage("../imgs/taxi.png");
- roadImg=loadImage("../imgs/trackImage.jpg");
- roadpic = loadImage("../imgs/gameover.png");
- bdaudio = loadSound("../audios/bgmusic.mp3");
+ policecarimg = loadAnimation("../tree/main/imgs/Police/1.png", "../tree/main/imgs/Police/2.png", "../tree/main/imgs/Police/3.png");
+ carimg = loadImage("../tree/main/imgs/Black_viper.png");
+ traffic1=loadImage("../tree/main/imgs/Ambulance.png");
+ traffic2=loadImage("../tree/main/imgs/Car.png");
+ traffic3=loadImage("../tree/main/imgs/Mini_truck.png");
+ traffic4=loadImage("../tree/main/imgs/Mini_van.png");
+ traffic5=loadImage("../tree/main/imgs/truck.png");
+ welcomeimg=loadImage("../tree/main/imgs/welcome.png");
+ traffic6=loadImage("../tree/main/imgs/taxi.png");
+ roadImg=loadImage("../tree/main/imgs/trackImage.jpg");
+ roadpic = loadImage("../tree/main/imgs/gameover.png");
+ bdaudio = loadSound("../tree/main/audios/bgmusic.mp3");
 
 }
 
